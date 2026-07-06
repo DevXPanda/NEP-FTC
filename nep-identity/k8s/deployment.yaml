@@ -1,0 +1,22 @@
+# Kubernetes Deployment for nep-identity. Placeholder — spec to be completed.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: nep-identity
+  labels:
+    app: nep-identity
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nep-identity
+  template:
+    metadata:
+      labels:
+        app: nep-identity
+    spec:
+      containers:
+        - name: nep-identity
+          image: nep-identity:latest
+          ports:
+            - containerPort: 3000

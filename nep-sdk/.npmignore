@@ -1,0 +1,7 @@
+src
+tsconfig.json
+tsconfig.build.json
+*.tsbuildinfo
+**/*.spec.ts
+**/*.test.ts
+.eslintrc*

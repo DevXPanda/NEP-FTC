@@ -1,0 +1,13 @@
+# Kubernetes Service for nep-identity. Placeholder.
+apiVersion: v1
+kind: Service
+metadata:
+  name: nep-identity
+  labels:
+    app: nep-identity
+spec:
+  selector:
+    app: nep-identity
+  ports:
+    - port: 80
+      targetPort: 3000

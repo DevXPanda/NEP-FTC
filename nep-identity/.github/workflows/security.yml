@@ -1,0 +1,12 @@
+# Security scanning for nep-identity — dependency & container scans. Placeholder.
+name: Security
+on:
+  schedule:
+    - cron: "0 3 * * 1"
+  pull_request:
+jobs:
+  scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # SCA / SAST / container scan steps TBD

@@ -1,0 +1,9 @@
+# OpenAPI contract for the nep-identity REST surface (api layer). Placeholder — paths TBD.
+openapi: 3.0.3
+info:
+  title: nep-identity API
+  version: 0.0.0
+  description: Identity and access management service for NEP.
+paths: {}
+components:
+  schemas: {}

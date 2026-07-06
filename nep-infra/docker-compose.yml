@@ -1,0 +1,62 @@
+# NEP shared local infrastructure — PostgreSQL, Redis, RabbitMQ.
+# Usage: docker compose -f nep-infra/docker-compose.yml up -d
+name: nep-infra
+
+services:
+  postgres:
+    image: postgres:16-alpine
+    container_name: nep-postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: nep
+      POSTGRES_PASSWORD: nep_password
+      POSTGRES_DB: nep
+    ports:
+      - "5432:5432"
+    volumes:
+      - nep-postgres-data:/var/lib/postgresql/data
+      # Runs once on first init: creates the "identity" schema (and other capability schemas).
+      - ./postgres/init:/docker-entrypoint-initdb.d:ro
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U nep -d nep"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  redis:
+    image: redis:7-alpine
+    container_name: nep-redis
+    restart: unless-stopped
+    command: ["redis-server", "--appendonly", "yes"]
+    ports:
+      - "6379:6379"
+    volumes:
+      - nep-redis-data:/data
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  rabbitmq:
+    image: rabbitmq:3.13-management-alpine
+    container_name: nep-rabbitmq
+    restart: unless-stopped
+    environment:
+      RABBITMQ_DEFAULT_USER: nep
+      RABBITMQ_DEFAULT_PASS: nep_password
+    ports:
+      - "5672:5672"    # AMQP
+      - "15672:15672"  # Management UI -> http://localhost:15672
+    volumes:
+      - nep-rabbitmq-data:/var/lib/rabbitmq
+    healthcheck:
+      test: ["CMD", "rabbitmq-diagnostics", "-q", "ping"]
+      interval: 10s
+      timeout: 5s
+      retries: 10
+
+volumes:
+  nep-postgres-data:
+  nep-redis-data:
+  nep-rabbitmq-data:

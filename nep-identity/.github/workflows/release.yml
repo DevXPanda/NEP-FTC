@@ -1,0 +1,11 @@
+# Release pipeline for nep-identity — build & publish Docker image. Placeholder.
+name: Release
+on:
+  push:
+    tags: ["v*"]
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # build / push image / deploy steps TBD

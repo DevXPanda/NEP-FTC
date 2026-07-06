@@ -1,0 +1,12 @@
+# CI pipeline for nep-identity — lint, build, test. Placeholder.
+name: CI
+on:
+  push:
+    branches: [main]
+  pull_request:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      # install / lint / build / test steps TBD

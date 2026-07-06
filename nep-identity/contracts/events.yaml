@@ -1,0 +1,7 @@
+# Asynchronous event contract for nep-identity (RabbitMQ). Placeholder — event schemas TBD.
+asyncapi: 2.6.0
+info:
+  title: nep-identity Events
+  version: 0.0.0
+  description: Domain events published and consumed by the identity service.
+channels: {}

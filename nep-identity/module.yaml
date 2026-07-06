@@ -1,0 +1,49 @@
+# NEP module descriptor — declares this repo as an independent business capability.
+name: nep-identity
+capability: identity
+description: Identity and access management for the NKTech Enterprise Platform.
+schema: identity          # owns exactly one PostgreSQL schema
+version: 0.0.0
+owner: platform-team
+dependsOn: []             # no cross-schema DB dependencies; integrate via events/contracts only
+
+# HTTP surface exposed through the API Gateway (prefix: /api).
+routes:
+  - method: POST
+    path: /api/auth/register
+    summary: Register a new user within a tenant.
+    auth: public
+  - method: POST
+    path: /api/auth/login
+    summary: Authenticate and receive an access + refresh token pair.
+    auth: public
+  - method: POST
+    path: /api/auth/refresh
+    summary: Rotate a refresh token for a new access + refresh pair.
+    auth: public
+
+# Authorization scopes/permissions this capability defines and enforces.
+permissions:
+  - key: identity.user.read
+    description: Read user profiles within the caller's scope.
+  - key: identity.user.manage
+    description: Create, update, suspend, or delete users.
+  - key: identity.session.manage
+    description: Revoke sessions and refresh tokens.
+
+# Domain events published to the NEP event bus (see contracts/events.yaml).
+publishes:
+  events:
+    - name: UserRegistered
+      routingKey: identity.user.registered
+      version: 1
+    - name: UserLoggedIn
+      routingKey: identity.user.logged_in
+      version: 1
+
+# Events this capability consumes from other capabilities.
+consumes:
+  events: []
+
+exposes:
+  rest: contracts/openapi.yaml

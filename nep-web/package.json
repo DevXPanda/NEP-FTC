@@ -1,0 +1,15 @@
+{
+  "name": "nep-web",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Frontend for NEP (NKTech Enterprise Platform) — Next.js 15 App Router.",
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint",
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {},
+  "devDependencies": {}
+}
